@@ -1,0 +1,48 @@
+<!-- templates/checkout.html -->
+
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Checkout</title>
+    <script src="https://js.stripe.com/v3/"></script>
+</head>
+<body>
+    <h2>Checkout</h2>
+    <form method="post">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <button type="submit">Pay</button>
+    </form>
+
+    {% if client_secret %}
+        <script type="text/javascript">
+            var stripe = Stripe('{{ stripe_publishable_key }}');
+            var elements = stripe.elements();
+            var card = elements.create('card');
+            card.mount('body');
+
+            var form = document.querySelector('form');
+            form.addEventListener('submit', function(event) {
+                event.preventDefault();
+
+                stripe.confirmCardPayment('{{ client_secret }}', {
+                    payment_method: {
+                        card: card,
+                        billing_details: {
+                            email: '{{ form.email.value }}'
+                        }
+                    }
+                }).then(function(result) {
+                    if (result.error) {
+                        console.log(result.error.message);
+                    } else {
+                        if (result.paymentIntent.status === 'succeeded') {
+                            console.log('Payment succeeded');
+                        }
+                    }
+                });
+            });
+        </script>
+    {% endif %}
+</body>
+</html>

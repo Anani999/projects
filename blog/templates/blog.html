@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    {% load static %}
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Blog</title>
+    <link rel="stylesheet" href="{% static 'blog.css' %}">
+</head>
+<body>
+    <header class="header">
+        <h1> Blogs</h1>
+    </header>
+
+    <div class="blog-container">
+        <div class="header">
+            <img src="{{blog.image.url}}" alt="image"/>
+            <h1>{{blog.heading}}</h1>
+        </div>
+        <div class="body">
+           <p>{{blog.body}}</p>
+        </div>
+    </div>
+</body>
+</html>

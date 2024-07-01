@@ -1,0 +1,57 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    {% load static %}
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Update blog - {{blog.heading}}</title>
+    <link rel="stylesheet" href="{% static 'update_blog.css' %}">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+
+
+</head>
+<body>
+    <header class="header">
+        <h1> Update blog - {{blog.heading}}</h1>
+    </header>
+
+    <div class="blog-container">
+        <form method="POST" action="{% url 'update-blog' blog.id %}" enctype="multipart/form-data">
+            {% csrf_token %}
+            <div class="header">
+                    <img id="imageDisplay" src="{{blog.image.url}}" alt="image"/>
+                    <button type="button" id="uploadButton">Change Image</button>
+               
+                <input id="fileInput" type="file" name="image" id="image" accept="image/*">
+                <input value="{{blog.heading}}" name="heading"/>
+            </div>
+            
+            <div class="body">
+            <textarea name="content">{{blog.body}}</textarea>
+            <input type="submit" value="submit"/>
+            </div>
+           
+        </form>
+    </div>
+
+    <script>
+        document.getElementById('uploadButton').addEventListener('click',function() {
+            document.getElementById('fileInput').click();
+        });
+
+        document.getElementById('fileInput').addEventListener('change', function() {
+            console.log('file changed')
+            const file = event.target.files[0];
+            if(file){
+                const reader = new FileReader();
+                reader.onload = function(e){
+                    const imageDisplay = document.getElementById('imageDisplay');
+                    imageDisplay.src = e.target.result;
+                };
+                reader.readAsDataURL(file);
+            }
+        });
+    </script>
+</body>
+</html>

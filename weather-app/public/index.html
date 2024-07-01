@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Weather App</title>
+</head>
+<body>
+  <h1>Weather App</h1>
+  <form id="weatherForm">
+    <input type="text" id="latitude" placeholder="Enter latitude" required>
+    <input type="text" id="longitude" placeholder="Enter longitude" required>
+    <button type="submit">Get Weather</button>
+  </form>
+  <div id="weatherResult"></div>
+
+  <script>
+    document.getElementById('weatherForm').addEventListener('submit', async (event) => {
+      event.preventDefault();
+      const latitude = document.getElementById('latitude').value;
+      const longitude = document.getElementById('longitude').value;
+      const response = await fetch(`/weather?latitude=${latitude}&longitude=${longitude}`);
+      const data = await response.json();
+
+      const weatherResult = document.getElementById('weatherResult');
+
+      if (response.ok) {
+        weatherResult.innerHTML = `
+          <h2>Weather at (${latitude}, ${longitude})</h2>
+          <p>Temperature: ${data.temperature}°C</p>
+        `;
+      } else {
+        weatherResult.innerHTML = `<p>Error: ${data.error}</p>`;
+      }
+    });
+  </script>
+</body>
+</html>

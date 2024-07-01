@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    {% load static %}
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="{% static 'home.css' %}">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+</head>
+<body>
+    <header class="header">
+        <h1> Blogs</h1>
+        <p class="create"><a href="{% url 'create-blog' %}">Add</a></p>
+    </header>
+
+
+    <!-- Blogs  -->
+    <div class="blogs">
+
+        <!-- Loading blogs  -->
+        {% for blog in blogs %}
+        <!-- Blog -->
+        
+            <div class="blog">
+                <div class="blog-head">
+                    <div class="menu">
+                        <a  style="color: rgb(0, 0, 0);" class="fas fa-ellipsis-h" onclick="togleMenu('{{blog.id}}')"></a>
+                    </div>
+                </div>
+                <!-- IMG -->
+                <div class="img">
+                    <img src="{{blog.image.url}}" alt="">
+                </div>
+
+                <!-- body -->
+                <div class="body">
+                    <a href="{% url 'blog_details' blog.id %}">
+                        <H1>{{blog.heading}}</H1>
+                        <p>{{blog.first_two_lines}}</p>
+                    </a>
+                </div>
+
+                <div class="menu-options" id="menu-options-{{blog.id}}">
+                    <a href="{% url 'delete-blog' blog.id%}"><li>Delete</li></a>
+                    <a href="{% url 'update-blog' blog.id%}"><li>Edit</li></a>
+                </div>
+            </div>
+       
+        {% endfor %}
+
+       
+
+        
+
+    </div>
+
+
+</body>
+
+<script>
+    function togleMenu(id){
+        var menu = document.getElementById('menu-options-'+id);
+        if (menu.style.display == 'none'){
+            menu.style.display = "block";
+        }else{
+            menu.style.display = 'none'
+        }
+    }
+</script>
+</html>

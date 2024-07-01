@@ -1,0 +1,92 @@
+*{
+    margin: 0;
+    padding: 0;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    color: rgb(46, 46, 46);
+}
+
+.blogs{
+    padding: 10px;
+    max-width: 1300px;
+    margin: 0 auto;
+    display: flex;
+    flex-wrap: wrap;
+}
+
+.blog{
+    width: 300px;
+    padding: 10px;
+    border: 2px solid rgb(0, 0, 0,0.2);
+    border-radius: 10px;
+    margin: 10px;
+    position: relative;
+}
+
+.blog img{
+    width: 100%;
+    border-radius: 10px;
+}
+
+.blog h1{
+    font-size: 20px;
+}
+
+/* header */
+header{
+    background:linear-gradient(to right,blue,blueviolet);
+    padding: 20px;
+    text-align: center;
+    
+}
+
+header h1{
+    color: white;
+}
+
+
+/* blog head */
+.blog-head .menu{
+    border-radius: 50%;
+    width: 20px;
+    color: rgb(0, 0, 0);
+    cursor: pointer;
+}
+
+.blog-head .menu:hover{
+
+}
+
+.menu-options{
+    background-color: white;
+    color: white;
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    display: flex;
+    flex-direction: column;
+    box-shadow: 0 0 10px 1px gray;
+    display: none;
+}
+
+.menu-options li{
+    list-style: none;
+    cursor: pointer;
+    margin:10px;
+}
+
+.menu-options li:hover{
+    text-decoration: underline;
+}
+
+.create{
+    color: white;
+    font-size: 20px;
+    position: absolute;
+    right: 20px;
+    top:20px;
+    cursor: pointer;
+}
+
+header a{
+    all: unset;
+}
